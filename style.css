@@ -1,0 +1,364 @@
+@import url("https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap");
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+button,
+select {
+  cursor: pointer;
+}
+
+html[data-theme="light"] {
+  font-size: 62.5%;
+  --clr-primary: #000;
+  --clr-inverse: #fff;
+  --clr-primaryBox: rgba(0,0,0,0.1);
+  --clr-inverseBox: rgba(255,255,255,0.1);
+}
+
+html[data-theme="dark"] {
+  font-size: 62.5%;
+  --clr-primary: #fff;
+  --clr-inverse: #000;
+  --clr-primaryBox: rgba(255,255,255,0.1);
+  --clr-inverseBox: rgba(0,0,0,0.1);
+  
+}
+
+.loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--clr-inverse);
+  color: var(--clr-primary);
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 2rem;
+  transition: none;
+}
+
+.toggle-container {
+  position: absolute;
+  top: 0.8vw;
+  right: 0.8vw;
+  display: flex;
+  align-items: center;
+
+  z-index: 2;
+}
+
+input[type="checkbox"] {
+  cursor: pointer;
+  position: relative;
+  width: 50px;
+  height: 25px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border-radius: 20px;
+  transition: all 0.5s ease-in-out;
+  outline: none;
+  background-color: var(--clr-primary);
+  position: relative;
+  margin: 50px;
+}
+
+input[type="checkbox"]::before,
+input[type="checkbox"]::after {
+  content: "";
+  position: absolute;
+  top: 25%;
+  width: 12.5px;
+  height: 12.5px;
+  border-radius: 50%;
+  background-color: var(--clr-inverse);
+  transition: all 0.5s ease-in-out;
+}
+
+input[type="checkbox"]::before {
+  left: 0.5rem;
+}
+
+input[type="checkbox"]::after {
+  right: 0.5rem;
+}
+
+input:checked[type="checkbox"]::before {
+  left: 37%;
+  box-shadow: none;
+}
+
+input:checked[type="checkbox"]::after {
+  right: 38%;
+  box-shadow: none;
+}
+
+.game {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background-color: var(--clr-inverse);
+  overflow: hidden;
+}
+
+.quit {
+  position: absolute;
+  top: calc(1vw + 1rem);
+  right: calc(2vw + 2rem);
+  background-color: transparent;
+  font-size: 2rem;
+  border: 0.2rem solid var(--clr-primary);
+  padding: 0.5rem;
+  outline: none;
+  border-radius: 25%;
+  color: var(--clr-primary);
+}
+
+.quit:hover {
+  transform: translateY(0.5rem);
+  box-shadow: 2px 2px 15px 1px var(--clr-primary);
+}
+
+.menu {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: var(--clr-inverse);
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: left 0.5s ease-in-out;
+}
+
+.menu-container {
+  width: max-content;
+  height: max-content;
+  padding: 10rem;
+  color: var(--clr-primary);
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+}
+
+.menu-container h1 {
+  text-align: center;
+  font-size: 5rem;
+  font-family: "Great Vibes", cursive;
+  margin-bottom: 5rem;
+}
+
+.menu-container div {
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+}
+
+.menu-container label {
+  font-size: 2rem;
+  margin-right: 2rem;
+}
+
+.menu-container select {
+  display: inline-block;
+  width: 10rem;
+  font-size: 1.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+  outline: none;
+  border: none;
+  color: var(--clr-inverse);
+  background-color: var(--clr-primary);
+}
+
+.menu-container button {
+  font-size: 1.5rem;
+  padding: 0.8rem 2rem;
+  display: block;
+  margin-top: 3rem;
+  border-radius: 1rem;
+  outline: none;
+  border: none;
+  width: 21rem;
+  margin-left: auto;
+  margin-right: auto;
+  color: var(--clr-inverse);
+  background-color: var(--clr-primary);
+}
+
+.menu-container button:hover,
+.menu-container button:focus {
+  transform: translateY(0.5rem);
+  box-shadow: 0 0 10px 5px var(--clr-primaryBox);
+}
+
+.cardList {
+  height: max-content;
+  width: max-content;
+  display: grid;
+
+  grid-template-columns: repeat(4, minmax(5rem, 25rem));
+  grid-gap: 1rem;
+  list-style: none;
+  padding: 1rem;
+}
+
+.cardList-card {
+  display: block;
+
+  position: relative;
+  transform-style: preserve-3d;
+
+  transition: transform 0.5s ease-in-out;
+}
+
+.front,
+.back {
+  height: 100%;
+  width: 100%;
+}
+
+.front {
+  transform-style: preserve-3d;
+  transform-origin: center;
+  transition: transform 0.5s ease-in-out;
+  backface-visibility: hidden;
+}
+
+.back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  transform: rotateY(180deg);
+  transform-origin: center;
+  /* background-image: url(/img/baby-bear.jpg); */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  transition: transform 0.5s ease-in-out;
+}
+
+.cardList-card img {
+  height: 100%;
+  width: 100%;
+}
+
+/* dynamic classes */
+
+.clicked-card .front {
+  transform: rotateY(-180deg);
+}
+
+.clicked-card .back {
+  transform: rotateY(0deg);
+}
+
+.play-game {
+  left: 100%;
+}
+
+.pro {
+  grid-template-columns: repeat(4, minmax(5rem, 18rem));
+}
+
+.game-start {
+  left: 100%;
+  transition: left 0.5s ease-in-out;
+  transition-delay: 3.2s;
+}
+
+.game-start span {
+  transition: 0.2s ease-in-out;
+}
+
+.game-start span:nth-of-type(1) {
+  color: rgb(8, 143, 30);
+  transition-delay: 0.8s;
+}
+
+.game-start span:nth-of-type(2) {
+  color: rgb(8, 143, 30);
+  transition-delay: 1.8s;
+}
+
+.game-start span:nth-of-type(3) {
+  color: rgb(8, 143, 30);
+  transition-delay: 2.8s;
+}
+
+
+/* dialog */
+
+#resDialog{
+  --resColor:green;
+  inset: 0;
+  margin: auto;
+  border: none;
+  transition: all 0.3s ease-in-out;
+  transform: scale(0);
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  font-family: "Noto Sans SC", sans-serif;
+  color: var(--primary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  flex-direction: column;
+  user-select: none;
+}
+
+#resDialog.loser{
+   --resColor:red;
+}
+
+#resDialog::backdrop{
+  transform: scale(0);
+  border-radius: 50%;
+  transition: all 0.3s ease-in-out;
+}
+
+#resDialog.dialOpen,#resDialog.dialOpen::backdrop{
+  transform: scale(150%);
+}
+
+#resDialog h5{
+      color: var(--resColor);
+    font-size: 1.2rem;
+}
+
+#resDialog button{
+    outline: none;
+    border: none;
+    background: var(--resColor);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.2rem;
+    font-size: 1rem;
+}
+
+#resDialog button:hover{
+  box-shadow: 0 0 0.5rem 0.1rem rgba(0,0,0,0.2);
+}
+
+@media only screen and (max-width: 500px) {
+  .menu-container label {
+    margin-right: 1rem;
+  }
+}
